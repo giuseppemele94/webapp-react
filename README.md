@@ -1,4 +1,4 @@
-![Screenshot](./public/Schema%20struttura%20webapp%20.png)
+![Screenshot](./public/Struttura.png)
 
 # React + Vite
 
