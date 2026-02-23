@@ -4,10 +4,10 @@ function CardMovie() {
 
     return (
         <div className="card mb-4" >
-            <img src="..."
+            <img src="https://www.movietele.it/wp-content/uploads/2021/08/281912-be0.jpg"
                 className="card-img-top" alt="..." />
             <div className="card-body">
-                <h3 className="card-title">Card title</h3>
+                <h3 className="card-title">Harry Potter e la pietra filosofale</h3>
                 <h5 className="card-subtitle mb-2 text-body-secondary">Director</h5>
                 <h6 className="card-subtitle mb-2 text-body-secondary">Genre</h6>
                 <p className ="card-text"><i>Year</i></p>
