@@ -1,3 +1,5 @@
+(./public/Schema%20struttura%20webapp%20.png)
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
