@@ -1,7 +1,7 @@
 //importo le pages
 import HomePage from "./pages/HomePage"
 import MoviePage from "./pages/MoviePage"
-
+import NotFoundPage from "./pages/NotFoundPage"
 //importo il layout di default
 import DefaultLayout from "./layouts/DefaultLayout"
 
@@ -22,6 +22,7 @@ function App() {
             <Route index element={<HomePage />} />
             {/* Route dinamica: quando l'URL è "/movies/id" renderizza MoviePage dentro il layout */}
             <Route path="/movies/:id" element={<MoviePage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
 
