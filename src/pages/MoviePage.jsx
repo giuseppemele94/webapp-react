@@ -1,15 +1,18 @@
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams, useNavigate } from "react-router-dom"
 import axios from "axios";
 import { useState, useEffect } from "react";
 
 //import componente cardReview
 import CardReview from "../components/CardReview"
+import NotFoundPage from "./NotFoundPage";
 
 const endpoint = "http://localhost:3000/api/movies/";
 
 
 function MoviePage() {
 
+    // creiamo istanza del navigate per poterlo utilizzare
+    const redirect = useNavigate();
 
     //recupero l'id dall'url della rotta e lo aggiungo successivamente nella chiamta axios
     const { id } = useParams();
@@ -26,6 +29,7 @@ function MoviePage() {
             })
             .catch(err => {
                 console.log(err);
+                if(err.status = 404) redirect('/404'); 
             });
     }, []);
 
