@@ -1,29 +1,64 @@
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
+import axios from "axios";
+import { useState, useEffect } from "react";
 
 //import componente cardReview
 import CardReview from "../components/CardReview"
 
+const endpoint = "http://localhost:3000/api/movies/";
+
+
 function MoviePage() {
+
+
+    //recupero l'id dall'url della rotta e lo aggiungo successivamente nella chiamta axios
+    const { id } = useParams();
+
+    //var di stato 
+    const [movie, setMovie] = useState({});
+
+    //chiamata AJAX alla rotta show 
+    useEffect(() => {
+        axios.get(endpoint + id)
+            .then(res => {
+                console.log(res.data)
+                setMovie(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }, []);
+
+
+
+    //funzione di rendering del listato delle review 
+    const renderReview = () => {
+        return movie.reviews?.map(review => {
+            return (
+                <CardReview review={review} key={review.id} />
+            )
+        })
+    }
+
+
+
     return (
         <>
             <header id="movie " className="border-bottom border-1 mb-3">
                 <div className="d-flex mb-3 ">
-                    <img src="https://www.movietele.it/wp-content/uploads/2021/08/281912-be0.jpg" alt="titolo del film"
+                    <img src={movie.image} alt="titolo del film"
                         className="img-fluid movie-poster" />
                 </div>
-                <h1>Titolo film</h1>
-                <h3 className="text-muted"><i>Director</i></h3>
-                <p>lorem ipsm dolor sit amet</p>
+                <h1>{movie.title}</h1>
+                <h3 className="text-muted"><i>{movie.director}</i></h3>
+                <p>{movie.abstract}</p>
             </header>
 
             <section id="reviews">
                 <header className="d-flex justify-content-between align-items-center mb-4">
                     <h4>Our community reviews</h4>
                 </header>
-
-                <CardReview />
-                <CardReview />
-
+                {renderReview()}
             </section>
 
             <footer className="border-top border-1 pt-2 mb-3 d-flex justify-content-end">
