@@ -16,8 +16,11 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          {/* Rotta padre: viene applicato default layout che conterrà sempre l'header, cioò che cambierà sarà il segnaposto outlet   */}
           <Route element={<DefaultLayout />}>
+            {/* Route index: quando l'URL è "/" renderizza HomePage dentro il layout */}
             <Route index element={<HomePage />} />
+            {/* Route dinamica: quando l'URL è "/movies/id" renderizza MoviePage dentro il layout */}
             <Route path="/movies/:id" element={<MoviePage />} />
           </Route>
         </Routes>

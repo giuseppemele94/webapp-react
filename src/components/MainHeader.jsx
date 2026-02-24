@@ -6,7 +6,7 @@ function MainHeader() {
     return (
         <nav className="navbar bg-body-tertiary">
             <div className="container-fluid justify-content-center">
-                <Link className="navbar-brand" to="/">Books</Link>
+                <Link className="navbar-brand" to="/">Movies</Link>
             </div>
         </nav>
 
