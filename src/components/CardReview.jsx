@@ -1,13 +1,14 @@
-function CardReview() {
+const CardReview = (props) => {
 
+    const { name, vote , text } = props.review ; 
     return (
         <div className="card mb-4">
             <div className="card-body">
                 <p className="card-text">
-                    text review
+                    {text}
                 </p>
-                <strong>Vote: 5</strong>
-                <address><i>author's review</i></address>
+                <strong>Vote: {vote}</strong>
+                <address><i>By {name}</i></address>
             </div>
         </div>
     )
