@@ -5,17 +5,20 @@ import axios from "axios";
 const ReviewForm = (props) => {
 
     //ricaviamo in prop id del film 
-    const { movie_id } = props;
+    const { movie_id , reloadReviews} = props;
 
     //stringa endpoind del BE 
     const endpoint = `http://localhost:3000/api/movies/${movie_id}/reviews`;
 
-    // var di stato per gestire oggetto dei valori input form
-    const [formData, setFormData] = useState({
+    // creo oggetto per valori di default del form 
+    const initialFormData ={
         name: "",
         text: "",
         vote: 0
-    });
+    };
+
+//var di stato per gestire i valori dell'input form (inizialmente saranno quindi vuoti )
+const [formData, setFormData] = useState(initialFormData);
 
     // funzione di gestione dei dati del form 
     function setFieldValue(e) {
@@ -33,7 +36,8 @@ const ReviewForm = (props) => {
         //chiamata axios in post per creazione nuova review
         axios.post(endpoint, formData, { headers: { 'Content-Type': 'application/json' } })
             .then(() => {
-                console.log("Fatto")
+                setFormData(initialFormData); 
+                reloadReviews(); 
             })
             .catch((err) => {
                 console.log(err)

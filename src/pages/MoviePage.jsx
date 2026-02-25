@@ -22,9 +22,9 @@ function MoviePage() {
     //var di stato 
     const [movie, setMovie] = useState({});
 
-    //chiamata AJAX alla rotta show 
-    useEffect(() => {
-        axios.get(endpoint + id)
+    //funzione che gestisce la chiamata alla rotta SHOW 
+    const fetchMovie = () => {
+         axios.get(endpoint + id)
             .then(res => {
                 console.log(res.data)
                 setMovie(res.data);
@@ -32,8 +32,10 @@ function MoviePage() {
             .catch(err => {
                 console.log(err);
                 if (err.status = 404) redirect('/404');
-            });
-    }, []);
+            })
+    }
+    //richiamo funzione di fetch al montaggio della pagina MoviePage
+    useEffect(fetchMovie, []);
 
 
 
@@ -68,7 +70,7 @@ function MoviePage() {
             </section>
 
             <section>
-                <ReviewForm movie_id={movie.id}/>
+                <ReviewForm movie_id={movie.id} reloadReviews ={fetchMovie}/>
             </section>
 
             <footer className="border-top border-1 pt-2 mb-3 d-flex justify-content-end">
