@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 //import componente cardReview
 import CardReview from "../components/CardReview"
 import NotFoundPage from "./NotFoundPage";
+import ReviewForm from "../components/ReviewForm";
+
 
 const endpoint = "http://localhost:3000/api/movies/";
 
@@ -29,7 +31,7 @@ function MoviePage() {
             })
             .catch(err => {
                 console.log(err);
-                if(err.status = 404) redirect('/404'); 
+                if (err.status = 404) redirect('/404');
             });
     }, []);
 
@@ -63,6 +65,10 @@ function MoviePage() {
                     <h4>Our community reviews</h4>
                 </header>
                 {renderReview()}
+            </section>
+
+            <section>
+                <ReviewForm />
             </section>
 
             <footer className="border-top border-1 pt-2 mb-3 d-flex justify-content-end">
