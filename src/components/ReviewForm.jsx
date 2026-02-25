@@ -1,9 +1,44 @@
 import { useState } from "react";
+import axios from "axios";
 
-const ReviewForm = () => {
 
-// var di stato per gestire oggetto dei valori input form
-    const [formData, setFormData] = useState([]);
+const ReviewForm = (props) => {
+
+    //ricaviamo in prop id del film 
+    const { movie_id } = props;
+
+    //stringa endpoind del BE 
+    const endpoint = `http://localhost:3000/api/movies/${movie_id}/reviews`;
+
+    // var di stato per gestire oggetto dei valori input form
+    const [formData, setFormData] = useState({
+        name: "",
+        text: "",
+        vote: 0
+    });
+
+    // funzione di gestione dei dati del form 
+    function setFieldValue(e) {
+        setFormData((formData) => ({
+            ...formData,
+            [e.target.name]: e.target.value,
+        }));
+    }
+
+    //funzione per la chiamata al click onsubmit del form 
+    const handleSubmit = e => {
+        //evitiamo comportamento di base del form 
+        e.preventDefault();
+
+        //chiamata axios in post per creazione nuova review
+        axios.post(endpoint, formData, { headers: { 'Content-Type': 'application/json' } })
+            .then(() => {
+                console.log("Fatto")
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
 
     return (
         <div className="card">
@@ -11,18 +46,18 @@ const ReviewForm = () => {
                 <h5>Add your review</h5>
             </header>
             <div className="card-body">
-                <form onSubmit>
+                <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label>Name</label>
-                        <input type="text" name="name" className="form-control" value={formData.name} onChange />
+                        <input type="text" name="name" className="form-control" value={formData.name} onChange={setFieldValue} />
                     </div>
                     <div className="form-group">
                         <label>Review</label>
-                        <textarea className="form-control" name="text" value={formData.text} onChange></textarea>
+                        <textarea className="form-control" name="text" value={formData.text} onChange={setFieldValue}></textarea>
                     </div>
                     <div className="form-group">
                         <label>Voto</label>
-                        <input type="number" name="vote" min="1" max="5" className="form-control" value={formData.vote} onChange />
+                        <input type="number" name="vote" min="1" max="5" className="form-control" value={formData.vote} onChange={setFieldValue} />
                     </div>
                     <div className="d-flex justify-content-end pt-3">
                         <button type="submit" className="btn btn-primary">Send</button>
