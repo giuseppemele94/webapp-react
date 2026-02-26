@@ -3,12 +3,13 @@ import { Outlet } from "react-router-dom";
 import MainHeader from "../components/MainHeader";
 
 import Loader from "../components/Loader";
+import { useGlobal } from "../GlobalContext";
 
-//variabile di settaggio caricamento
-const isLoading = true ; 
 
 function DefaultLayout() {
-    
+    ////utilizzo dei valori messi a disposizione dal contesto globale 
+const {isLoading} = useGlobal();  
+
     return(
         <>
         <MainHeader/>

@@ -7,7 +7,7 @@ import CardReview from "../components/CardReview"
 import NotFoundPage from "./NotFoundPage";
 import ReviewForm from "../components/ReviewForm";
 
-
+import { useGlobal } from "../GlobalContext";
 const endpoint = "http://localhost:3000/api/movies/";
 
 
@@ -15,6 +15,9 @@ function MoviePage() {
 
     // creiamo istanza del navigate per poterlo utilizzare
     const redirect = useNavigate();
+
+    // attivo l'utilizzo del/dei valore/i messi a disposizione del contesto globale
+    const { setIsLoading } = useGlobal();
 
     //recupero l'id dall'url della rotta e lo aggiungo successivamente nella chiamta axios
     const { id } = useParams();
@@ -24,15 +27,20 @@ function MoviePage() {
 
     //funzione che gestisce la chiamata alla rotta SHOW 
     const fetchMovie = () => {
-         axios.get(endpoint + id)
+
+        // parte la chimata cambio var stato context di conseguenza
+        setIsLoading(true);
+
+        axios.get(endpoint + id)
             .then(res => {
                 console.log(res.data)
                 setMovie(res.data);
             })
             .catch(err => {
                 console.log(err);
-                if (err.status = 404) redirect('/404');
+                if (err.status = 404) redirect('/404')
             })
+        .finally(setIsLoading(false))
     }
     //richiamo funzione di fetch al montaggio della pagina MoviePage
     useEffect(fetchMovie, []);
@@ -70,7 +78,7 @@ function MoviePage() {
             </section>
 
             <section>
-                <ReviewForm movie_id={movie.id} reloadReviews ={fetchMovie}/>
+                <ReviewForm movie_id={movie.id} reloadReviews={fetchMovie} />
             </section>
 
             <footer className="border-top border-1 pt-2 mb-3 d-flex justify-content-end">

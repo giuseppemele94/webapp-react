@@ -1,6 +1,7 @@
 import CardMovie from "../components/CardMovie"
 import axios from "axios"
 import { useState, useEffect } from "react"
+import { useGlobal } from "../GlobalContext";
 
 const endpoint = "http://localhost:3000/api/movies";
 
@@ -9,8 +10,12 @@ function HomePage() {
     //impost variabile di stato 
     const [movies, setMovies] = useState([]);
 
+     // attivo l'utilizzo del/dei valore/i messi a disposizione del contesto globale
+    const { setIsLoading } = useGlobal();
+
     //chiamata AJAX alla rotta INDEX del BACKEND piu UseEffect al montaggio della pagina 
     useEffect(() => {
+        setIsLoading(true);
         axios.get(endpoint)
             .then(res => {
                 console.log(res.data)
@@ -18,7 +23,8 @@ function HomePage() {
             })
             .catch(err => {
                 console.log(err);
-            });
+            })
+            .finally(setIsLoading(false)); 
     }, []);
 
     //funzione di rendering della lista dei film 

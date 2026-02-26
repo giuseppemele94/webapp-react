@@ -5,6 +5,9 @@ import NotFoundPage from "./pages/NotFoundPage"
 //importo il layout di default
 import DefaultLayout from "./layouts/DefaultLayout"
 
+//import providel contesto globale
+import { GlobalProvider } from "./GlobalContext"
+
 //importo componente per gestire le rotte
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 
@@ -14,6 +17,7 @@ function App() {
 
   return (
     <>
+    <GlobalProvider>
       <BrowserRouter>
         <Routes>
           {/* Rotta padre: viene applicato default layout che conterrà sempre l'header, cioò che cambierà sarà il segnaposto outlet   */}
@@ -25,8 +29,8 @@ function App() {
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
-
       </BrowserRouter>
+      </GlobalProvider>
     </>
   )
 }
