@@ -37,6 +37,9 @@ const [formData, setFormData] = useState(initialFormData);
         axios.post(endpoint, formData, { headers: { 'Content-Type': 'application/json' } })
             .then(() => {
                 setFormData(initialFormData); 
+                //tramite prop passata da moviepage rifà la chiamata alle review dei film quindi si aggiorna la 
+                //parte delle review automaticamente una volta che ne inseriamo una nuova
+                //senza dover ricaricarfe la pagina 
                 reloadReviews(); 
             })
             .catch((err) => {
